@@ -1,0 +1,832 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VORTEX | ROLEPLAY</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Orbitron:wght@600;800;900&display=swap');
+
+:root {
+ --red:#d21f3c;
+ --red2:#741124;
+ --black:#070709;
+ --panel:#111115;
+ --muted:#929098;
+}
+
+* {
+ margin:0;
+ padding:0;
+ box-sizing:border-box;
+ scroll-behavior:smooth;
+}
+
+body {
+ background:var(--black);
+ color:white;
+ font-family:'Cairo',Tahoma,sans-serif;
+ overflow-x:hidden;
+}
+
+a {text-decoration:none;color:inherit}
+
+body:before {
+ content:"";
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ z-index:-1;
+ background:
+ radial-gradient(ellipse at 80% 15%,#74112425,transparent 35%),
+ radial-gradient(ellipse at 10% 70%,#b0183020,transparent 35%);
+}
+
+.noise {
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ z-index:20;
+ opacity:.12;
+ background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.15'/%3E%3C/svg%3E");
+}
+
+/* NAVIGATION */
+
+.navbar {
+ height:85px;
+ padding:0 7%;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ border-bottom:1px solid #ffffff12;
+ background:#08080bea;
+ backdrop-filter:blur(18px);
+ position:sticky;
+ top:0;
+ z-index:100;
+}
+
+.brand {
+ display:flex;
+ align-items:center;
+ gap:12px;
+}
+
+.brand img {
+ width:47px;
+ height:47px;
+ object-fit:contain;
+ filter:drop-shadow(0 0 12px #d21f3c);
+}
+
+.brand h2 {
+ font-family:Orbitron,sans-serif;
+ font-size:22px;
+ letter-spacing:2px;
+}
+
+.brand h2 span {color:var(--red)}
+
+.nav-links {
+ display:flex;
+ gap:30px;
+}
+
+.nav-links a {
+ color:#aaa;
+ font-size:13px;
+ transition:.3s;
+}
+
+.nav-links a:hover {color:white}
+
+.nav-status {
+ display:flex;
+ align-items:center;
+ gap:9px;
+ color:#ccc;
+ font-size:11px;
+ letter-spacing:1px;
+}
+
+.dot {
+ width:7px;
+ height:7px;
+ border-radius:50%;
+ background:#d21f3c;
+ box-shadow:0 0 12px #d21f3c;
+ animation:blink 1.5s infinite;
+}
+
+@keyframes blink {
+ 50% {opacity:.3}
+}
+
+/* HERO */
+
+.hero {
+ min-height:760px;
+ position:relative;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ flex-direction:column;
+ text-align:center;
+ overflow:hidden;
+ padding:75px 20px;
+}
+
+.hero-grid {
+ position:absolute;
+ inset:0;
+ opacity:.12;
+ background-image:
+ linear-gradient(#ffffff14 1px,transparent 1px),
+ linear-gradient(90deg,#ffffff14 1px,transparent 1px);
+ background-size:65px 65px;
+ mask-image:linear-gradient(to bottom,black,transparent);
+}
+
+.hero-light {
+ position:absolute;
+ width:550px;
+ height:550px;
+ background:#a50e2a;
+ filter:blur(170px);
+ opacity:.18;
+ border-radius:50%;
+}
+
+.hero-logo {
+ width:255px;
+ height:255px;
+ object-fit:contain;
+ position:relative;
+ z-index:2;
+ animation:logoMotion 4s ease-in-out infinite;
+ filter:drop-shadow(0 0 20px #b91b37aa);
+}
+
+@keyframes logoMotion {
+ 0%,100% {
+  transform:translateY(0) scale(1);
+  filter:drop-shadow(0 0 15px #b91b37);
+ }
+ 50% {
+  transform:translateY(-17px) scale(1.06);
+  filter:drop-shadow(0 0 40px #ed2145);
+ }
+}
+
+.hero-overline {
+ font-size:11px;
+ letter-spacing:7px;
+ color:#e74a61;
+ margin-top:15px;
+}
+
+.hero-title {
+ font-family:Orbitron,sans-serif;
+ font-size:clamp(55px,10vw,110px);
+ font-weight:900;
+ letter-spacing:9px;
+ line-height:1.2;
+ margin-top:10px;
+ text-shadow:0 0 35px #c21d3240;
+}
+
+.hero-title span {
+ color:var(--red);
+}
+
+.hero-description {
+ max-width:620px;
+ color:#aaa;
+ line-height:2.2;
+ font-size:14px;
+ margin:22px 0 28px;
+}
+
+.hero-buttons {
+ display:flex;
+ justify-content:center;
+ gap:13px;
+ flex-wrap:wrap;
+}
+
+.main-btn {
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ gap:12px;
+ padding:14px 28px;
+ background:linear-gradient(120deg,#d21f3c,#690d20);
+ border:1px solid #e52b49;
+ border-radius:5px;
+ font-size:13px;
+ font-weight:700;
+ transition:.3s;
+}
+
+.main-btn:hover {
+ transform:translateY(-5px);
+ box-shadow:0 10px 30px #c21d3240;
+}
+
+.secondary-btn {
+ background:#ffffff08;
+ border:1px solid #ffffff25;
+}
+
+.discord-icon {
+ width:25px;
+ height:25px;
+ fill:white;
+ animation:discordMove 2s infinite ease-in-out;
+}
+
+@keyframes discordMove {
+ 0%,100% {transform:translateY(0) rotate(-5deg)}
+ 50% {transform:translateY(-6px) rotate(5deg)}
+}
+
+.scroll-indicator {
+ position:absolute;
+ bottom:28px;
+ color:#777;
+ font-size:10px;
+ letter-spacing:4px;
+}
+
+.scroll-indicator:after {
+ content:"";
+ display:block;
+ height:35px;
+ width:1px;
+ background:var(--red);
+ margin:10px auto 0;
+}
+
+/* SECTIONS */
+
+.container {
+ max-width:1200px;
+ margin:auto;
+ padding:100px 25px;
+}
+
+.section-heading {
+ display:flex;
+ align-items:end;
+ justify-content:space-between;
+ gap:20px;
+ margin-bottom:40px;
+}
+
+.section-heading small {
+ color:var(--red);
+ font-size:11px;
+ letter-spacing:4px;
+}
+
+.section-heading h2 {
+ font-size:34px;
+ margin-top:8px;
+ font-weight:900;
+}
+
+.section-heading p {
+ color:#888;
+ font-size:12px;
+ line-height:2;
+ max-width:320px;
+}
+
+/* INTRO */
+
+.intro {
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:40px;
+ align-items:center;
+ border-top:1px solid #ffffff12;
+ border-bottom:1px solid #ffffff12;
+}
+
+.intro-number {
+ font-family:Orbitron,sans-serif;
+ font-size:100px;
+ color:#ffffff08;
+ font-weight:900;
+}
+
+.intro-text h2 {
+ font-size:35px;
+ margin-bottom:18px;
+}
+
+.intro-text h2 span {color:var(--red)}
+
+.intro-text p {
+ color:#999;
+ font-size:14px;
+ line-height:2.4;
+}
+
+/* FEATURE GRID */
+
+.feature-grid {
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:15px;
+}
+
+.feature {
+ background:linear-gradient(145deg,#171419,#0e0e11);
+ border:1px solid #ffffff12;
+ padding:25px 20px;
+ min-height:190px;
+ transition:.35s;
+ position:relative;
+ overflow:hidden;
+}
+
+.feature:before {
+ content:"";
+ position:absolute;
+ right:0;
+ top:0;
+ height:3px;
+ width:0;
+ background:var(--red);
+ transition:.4s;
+}
+
+.feature:hover:before {width:100%}
+
+.feature:hover {
+ transform:translateY(-7px);
+ border-color:#8c2034;
+}
+
+.feature-number {
+ font-family:Orbitron,sans-serif;
+ font-size:24px;
+ color:#c51b35;
+}
+
+.feature h3 {
+ margin:20px 0 10px;
+ font-size:16px;
+}
+
+.feature p {
+ font-size:12px;
+ color:#888;
+ line-height:2;
+}
+
+/* DEPARTMENTS */
+
+.department {
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:35px;
+ align-items:center;
+ margin-bottom:55px;
+ background:#111115;
+ border:1px solid #ffffff12;
+ overflow:hidden;
+ transition:.3s;
+}
+
+.department:hover {
+ border-color:#822035;
+}
+
+.department:nth-child(even) .department-image {
+ order:2;
+}
+
+.department-image {
+ height:390px;
+ background:#09090b;
+ overflow:hidden;
+}
+
+.department-image img {
+ width:100%;
+ height:100%;
+ object-fit:contain;
+ display:block;
+ transition:transform .5s;
+}
+
+.department:hover .department-image img {
+ transform:scale(1.035);
+}
+
+.department-info {
+ padding:35px;
+}
+
+.department-tag {
+ color:#e23c56;
+ font-size:10px;
+ letter-spacing:4px;
+}
+
+.department-info h3 {
+ font-family:Orbitron,sans-serif;
+ font-size:27px;
+ margin:17px 0;
+}
+
+.department-info h4 {
+ font-size:20px;
+ margin-bottom:15px;
+}
+
+.department-info p {
+ color:#999;
+ font-size:13px;
+ line-height:2.3;
+}
+
+.department-info ul {
+ list-style:none;
+ margin-top:20px;
+}
+
+.department-info li {
+ color:#ccc;
+ font-size:12px;
+ padding:10px 0;
+ border-bottom:1px solid #ffffff10;
+}
+
+.department-info li:before {
+ content:"◆";
+ color:var(--red);
+ font-size:9px;
+ margin-left:12px;
+}
+
+/* JOIN */
+
+.join {
+ text-align:center;
+ padding:85px 20px;
+ background:
+ radial-gradient(ellipse at center,#7c10252c,transparent 70%),
+ #100c10;
+ border-top:1px solid #622033;
+ border-bottom:1px solid #622033;
+}
+
+.join small {
+ color:#e34a62;
+ letter-spacing:5px;
+}
+
+.join h2 {
+ font-family:Orbitron,sans-serif;
+ font-size:clamp(35px,6vw,65px);
+ margin:20px 0;
+}
+
+.join h2 span {color:var(--red)}
+
+.join p {
+ color:#999;
+ margin-bottom:28px;
+ font-size:13px;
+ line-height:2;
+}
+
+/* FOOTER */
+
+footer {
+ padding:40px 7%;
+ background:#070709;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:20px;
+ border-top:1px solid #ffffff12;
+}
+
+.footer-logo {
+ font-family:Orbitron,sans-serif;
+ font-size:22px;
+ font-weight:900;
+}
+
+.footer-logo span {color:var(--red)}
+
+footer p {
+ font-size:11px;
+ color:#777;
+}
+
+/* MOBILE */
+
+@media(max-width:800px) {
+ .nav-status {display:none}
+ .nav-links {gap:13px}
+ .nav-links a {font-size:11px}
+ .hero {min-height:670px}
+ .hero-logo {width:205px;height:205px}
+ .intro {grid-template-columns:1fr;gap:10px}
+ .intro-number {font-size:70px}
+ .feature-grid {grid-template-columns:repeat(2,1fr)}
+ .department {grid-template-columns:1fr;gap:0}
+ .department:nth-child(even) .department-image {order:0}
+ .department-image {height:270px}
+ .department-info {padding:25px}
+ .section-heading {align-items:start;flex-direction:column}
+}
+
+@media(max-width:480px) {
+ .navbar {padding:0 4%;height:75px}
+ .brand img {width:36px;height:36px}
+ .brand h2 {font-size:17px}
+ .nav-links {gap:9px}
+ .nav-links a {font-size:10px}
+ .hero-title {letter-spacing:4px}
+ .hero-description {font-size:12px}
+ .feature-grid {grid-template-columns:1fr 1fr;gap:9px}
+ .feature {padding:18px 13px;min-height:180px}
+ .feature h3 {font-size:13px}
+ .feature p {font-size:11px}
+ .container {padding:70px 16px}
+ .department-info h3 {font-size:22px}
+ footer {flex-direction:column;text-align:center}
+}
+
+@media(prefers-reduced-motion:reduce) {
+ *,*::before,*::after {
+  animation:none !important;
+  scroll-behavior:auto !important;
+  transition:none !important;
+ }
+}
+</style>
+</head>
+
+<body>
+
+<div class="noise"></div>
+
+<!-- NAVIGATION -->
+
+<header class="navbar">
+
+<div class="brand">
+<img src="https://www.dropbox.com/scl/fi/lweuj0n47tvw6w1omy1l1/file_00000000ae448211a10d1f0b22babd5a.png?rlkey=drj5dt12e4bxxm61a3y3xqkh1&st=b43jeosz&dl=1" alt="VORTEX">
+<h2>VOR<span>TEX</span></h2>
+</div>
+
+<nav class="nav-links">
+<a href="#home">الرئيسية</a>
+<a href="#about">عن المدينة</a>
+<a href="#features">الأنظمة</a>
+<a href="#jobs">الوظائف</a>
+</nav>
+
+<div class="nav-status">
+<span class="dot"></span>
+VORTEX ROLEPLAY
+</div>
+
+</header>
+
+<!-- HERO -->
+
+<main>
+
+<section class="hero" id="home">
+
+<div class="hero-grid"></div>
+<div class="hero-light"></div>
+
+<img class="hero-logo"
+src="https://www.dropbox.com/scl/fi/lweuj0n47tvw6w1omy1l1/file_00000000ae448211a10d1f0b22babd5a.png?rlkey=drj5dt12e4bxxm61a3y3xqkh1&st=b43jeosz&dl=1"
+alt="VORTEX SERVER LOGO">
+
+<div class="hero-overline">WELCOME TO THE CITY</div>
+
+<h1 class="hero-title">VOR<span>TEX</span></h1>
+
+<p class="hero-description">
+مرحباً بك في عالم VORTEX ROLEPLAY.
+مدينة تجمع بين القطاعات الحكومية والوظائف
+والأحداث المتنوعة، ضمن تجربة رول بلاي متكاملة.
+</p>
+
+<div class="hero-buttons">
+
+<a class="main-btn"
+href="https://discord.gg/Q32tGW5vD"
+target="_blank" rel="noopener">
+
+<svg class="discord-icon" viewBox="0 0 24 24">
+<path d="M19.54 5.34A18.5 18.5 0 0 0 15.37 4a13 13 0 0 0-.53 1.1 17.1 17.1 0 0 0-5.68 0A12 12 0 0 0 8.63 4a18.4 18.4 0 0 0-4.17 1.34C1.82 9.23 1.1 13 1.46 16.7a18.6 18.6 0 0 0 5.12 2.6c.42-.57.79-1.18 1.1-1.82-.61-.23-1.2-.53-1.75-.87.15-.11.29-.22.43-.33 3.37 1.57 7.01 1.57 10.34 0 .14.11.28.22.43.33-.55.34-1.14.64-1.75.87.31.64.68 1.25 1.1 1.82a18.5 18.5 0 0 0 5.12-2.6c.43-4.29-.74-8.03-3.06-11.36ZM8.1 14.58c-1.01 0-1.84-.93-1.84-2.07 0-1.14.81-2.07 1.84-2.07 1.04 0 1.86.94 1.84 2.07 0 1.14-.81 2.07-1.84 2.07Zm7.8 0c-1.02 0-1.84-.93-1.84-2.07 0-1.14.8-2.07 1.84-2.07 1.03 0 1.85.94 1.84 2.07 0 1.14-.81 2.07-1.84 2.07Z"/>
+</svg>
+
+دخول إلى السيرفر
+</a>
+
+<a class="main-btn secondary-btn" href="#jobs">
+استكشف الوظائف
+</a>
+
+</div>
+
+<div class="scroll-indicator">SCROLL TO EXPLORE</div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section class="container intro" id="about">
+
+<div class="intro-number">01 / 04</div>
+
+<div class="intro-text">
+<h2>عالم <span>VORTEX</span></h2>
+<p>
+VORTEX ROLEPLAY هي مدينة تقدم للاعبين تجربة متنوعة
+تضم الوظائف والقطاعات الحكومية والأنظمة المختلفة.
+استكشف المدينة، وتعرف على الخدمات والمهام المتوفرة
+داخل عالم فورتكس.
+</p>
+</div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section class="container" id="features">
+
+<div class="section-heading">
+<div>
+<small>THE CITY SYSTEMS</small>
+<h2>أنظمة المدينة</h2>
+</div>
+<p>مجموعة من الأنظمة والخدمات التي تشكل تجربة VORTEX.</p>
+</div>
+
+<div class="feature-grid">
+
+<div class="feature">
+<div class="feature-number">01</div>
+<h3>نظام الوظائف</h3>
+<p>وظائف متنوعة وفرص للعمل داخل المدينة.</p>
+</div>
+
+<div class="feature">
+<div class="feature-number">02</div>
+<h3>نظام الشرطة</h3>
+<p>حماية المدينة وتنظيم الأمن والاستجابة للبلاغات.</p>
+</div>
+
+<div class="feature">
+<div class="feature-number">03</div>
+<h3>نظام المسعفين</h3>
+<p>الخدمات الطبية والطوارئ وإنقاذ المصابين.</p>
+</div>
+
+<div class="feature">
+<div class="feature-number">04</div>
+<h3>التحديثات</h3>
+<p>تحسينات وتطويرات مستمرة لأنظمة المدينة.</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- JOBS -->
+
+<section class="container" id="jobs">
+
+<div class="section-heading">
+<div>
+<small>CAREER & DEPARTMENTS</small>
+<h2>القطاعات الحكومية</h2>
+</div>
+<p>تعرف على أهم الوظائف والخدمات داخل المدينة.</p>
+</div>
+
+<!-- POLICE -->
+
+<div class="department">
+
+<div class="department-image">
+<img
+src="https://www.dropbox.com/scl/fi/xxm9ptxh36bl04umkjoly/file_0000000003a8820aa89dbdf054006a0b.png?rlkey=fgkxh0khw0sc4zfsy18f6ejpe&st=v23bnpab&dl=1"
+alt="Police Department">
+</div>
+
+<div class="department-info">
+
+<div class="department-tag">GOVERNMENT / 001</div>
+
+<h3>POLICE DEPARTMENT</h3>
+<h4>قطاع الشرطة</h4>
+
+<p>
+قطاع الشرطة هو الجهة المسؤولة عن حفظ الأمن والنظام
+داخل المدينة، وحماية المواطنين والتعامل مع البلاغات
+والحوادث وتنظيم الحركة المرورية.
+</p>
+
+<ul>
+<li>حماية المدينة والمواطنين</li>
+<li>الاستجابة للبلاغات</li>
+<li>تنظيم حركة المرور</li>
+<li>متابعة المخالفات والقضايا</li>
+<li>تطبيق قوانين المدينة</li>
+</ul>
+
+</div>
+</div>
+
+<!-- EMS -->
+
+<div class="department">
+
+<div class="department-image">
+<img
+src="https://www.dropbox.com/scl/fi/34g40z0bicse7jv6lzlh7/file_000000003060820a9b33dab8b269b245.png?rlkey=tlwzw9dd41n92g0b9cvco0d9g&st=3yv23o6m&dl=1"
+alt="EMS Hospital">
+</div>
+
+<div class="department-info">
+
+<div class="department-tag">MEDICAL / 002</div>
+
+<h3>EMS HOSPITAL</h3>
+<h4>قطاع المسعفين</h4>
+
+<p>
+قطاع المسعفين هو الجهة الطبية المسؤولة عن تقديم
+الرعاية الصحية والاستجابة للحالات الطارئة ومساعدة
+المصابين داخل المدينة.
+</p>
+
+<ul>
+<li>الاستجابة لنداءات الاستغاثة</li>
+<li>تقديم الإسعافات الأولية</li>
+<li>إنعاش المصابين</li>
+<li>نقل الحالات إلى المستشفى</li>
+<li>تقديم الرعاية الطبية للمواطنين</li>
+</ul>
+
+</div>
+</div>
+
+</section>
+
+<!-- JOIN -->
+
+<section class="join" id="join">
+
+<small>YOUR CITY IS WAITING</small>
+
+<h2>JOIN <span>VORTEX</span></h2>
+
+<p>
+انضم إلى مجتمع VORTEX ROLEPLAY
+وتابع أخبار السيرفر والوظائف والتحديثات.
+</p>
+
+<a class="main-btn"
+href="https://discord.gg/Q32tGW5vD"
+target="_blank" rel="noopener">
+
+<svg class="discord-icon" viewBox="0 0 24 24">
+<path d="M19.54 5.34A18.5 18.5 0 0 0 15.37 4a13 13 0 0 0-.53 1.1 17.1 17.1 0 0 0-5.68 0A12 12 0 0 0 8.63 4a18.4 18.4 0 0 0-4.17 1.34C1.82 9.23 1.1 13 1.46 16.7a18.6 18.6 0 0 0 5.12 2.6c.42-.57.79-1.18 1.1-1.82-.61-.23-1.2-.53-1.75-.87.15-.11.29-.22.43-.33 3.37 1.57 7.01 1.57 10.34 0 .14.11.28.22.43.33-.55.34-1.14.64-1.75.87.31.64.68 1.25 1.1 1.82a18.5 18.5 0 0 0 5.12-2.6c.43-4.29-.74-8.03-3.06-11.36ZM8.1 14.58c-1.01 0-1.84-.93-1.84-2.07 0-1.14.81-2.07 1.84-2.07 1.04 0 1.86.94 1.84 2.07 0 1.14-.81 2.07-1.84 2.07Zm7.8 0c-1.02 0-1.84-.93-1.84-2.07 0-1.14.8-2.07 1.84-2.07 1.03 0 1.85.94 1.84 2.07 0 1.14-.81 2.07-1.84 2.07Z"/>
+</svg>
+
+JOIN DISCORD
+</a>
+
+</section>
+
+</main>
+
+<footer>
+
+<div class="footer-logo">VOR<span>TEX</span></div>
+
+<p>© 2026 VORTEX ROLEPLAY. ALL RIGHTS RESERVED.</p>
+
+</footer>
+
+</body>
+</html>
